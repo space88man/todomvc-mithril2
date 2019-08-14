@@ -4,18 +4,18 @@ import Storage from './storage'
 import Todo from './todo'
 
 var Data = {
-  newTitle: '',
+  newTitle: '', // placeholder to receive new Todo
   list: [],
   load: function() {
     Data.list = Storage.get();
   },
 
-  visible: function(attrs) {
-    if (!('filter' in attrs)) {
+  visible: function(filter) {
+    if (!filter) {
       return Data.list;
     } else {
       return Data.list.filter(function(item) {
-	if (attrs.filter === 'completed') {
+	if (filter === 'completed') {
 	  return item.completed;
 	}
 	else {
