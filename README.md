@@ -32,6 +32,7 @@ a global `m` object.
 ```
 # Use this to bundle or to avoid using native modules
 
+npm install --save
 npm install webpack webpack-cli --save-dev
 node_modules/.bin/webpack js/app.js --output bin/app.js
 ```
