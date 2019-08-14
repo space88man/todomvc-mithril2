@@ -19,6 +19,17 @@ This repo uses native Javascript modules and downloads the JS files from your we
 without the `.js` suffix; make sure your webserver does suitable URL rewriting.
 
 
+## Development with Webpack
+
+Landing page: use `index-dev.html` as the landing page if you are doing development.
+
+```
+# the files in src/ are just copies of the files
+# in js/
+# use this to bundle/avoid using native Javascript modules
+webpack src/app.js --output bin/app.js
+```
+
 ## Example lighttpd configuration to serve this repo
 
 ```

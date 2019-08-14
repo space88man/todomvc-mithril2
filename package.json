@@ -9,11 +9,22 @@
   "description": "> [Mithril](https://mithril.js.org/) is a modern client-side Javascript framework for building Single Page Applications. It's small (< 8kb gzip), fast and provides routing and XHR utilities out of the box.",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/space88man/todomvc-mithril2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/space88man/todomvc-mithril2/issues"
+  },
+  "homepage": "https://github.com/space88man/todomvc-mithril2#readme"
 }
