@@ -4,6 +4,7 @@ import Storage from './storage'
 import Todo from './todo'
 
 var Data = {
+  newTitle: '',
   list: [],
   load: function() {
     Data.list = Storage.get();
@@ -28,13 +29,13 @@ var Data = {
     return Data.list.length == 0;
   },
 
-  add: function(e) {
-    var title = e.target.value.trim();
+  add: function() {
+    var title = Data.newTitle.trim();
     if (title) {
       Data.list.push(new Todo({title: title}));
       Storage.put(Data.list);
     }
-    e.target.value = '';
+    Data.newTitle = '';
   },
 
   complete: function(task) {
@@ -66,8 +67,8 @@ var Data = {
     todo.editing = false;
   },
 
-  clearTitle: function(e) {
-    e.target.value = '';
+  clearTitle: function() {
+    Data.newTitle = '';
   },
 
   remove: function(index) {

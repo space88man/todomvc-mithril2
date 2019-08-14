@@ -12,10 +12,10 @@ function watchInput(onenter, onescape) {
   return function (e) {
     // m.redraw.strategy('none');
     if (e.keyCode === ENTER_KEY) {
-      onenter(e);
+      onenter();
       // m.redraw.strategy('diff');
     } else if (e.keyCode === ESC_KEY) {
-      onescape(e);
+      onescape();
     }
   }
 };
@@ -34,16 +34,20 @@ export var MainView = (function() {
         m('header.header',
           [
             m('h1', 'todos'),
-            m('input.new-todo[placeholder="What needs to be done?"]', {
-              onkeyup: watchInput(e => Data.add(e),
-                                  e => Data.clearTitle(e)),
-              oncreate: vnode => {
-                if (!focused) {
-                  vnode.dom.focus();
-                  focused = true;
-                }
-              },
-            })
+            m('input.new-todo[placeholder="What needs to be done?"]',
+	      {
+		onkeyup: watchInput(Data.add, Data.clearTitle),
+
+		oncreate: v => {
+                  if (!focused) {
+                    v.dom.focus();
+                    focused = true;
+                  }
+		},
+
+		oninput: (e) => {Data.newTitle = e.target.value;},
+		value: Data.newTitle,
+              })
           ]),
         m('section.main',
           {
@@ -86,9 +90,9 @@ export var MainView = (function() {
                   ]),
                   m('input.edit', {
                     value: task.title,
-                    onupdate: e => {
+                    onupdate: v => {
                       if (task.editing)
-                        e.dom.focus();
+                        v.dom.focus();
                     },
                     oninput: e => { task.title = e.target.value; },
                     onkeyup: watchInput(
