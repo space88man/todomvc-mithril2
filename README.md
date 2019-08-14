@@ -40,7 +40,7 @@ this to simulate a production webserver apache/nginx etc.
 # --- cut here ---
 # save this file to todomvc.conf
 # lighttpd -f todomvc.conf -D
-server.document-root = "."
+server.document-root = "FILL_IN_PATH_TO_THIS_DIRECTORY/"
 var.conf_dir = "/etc/lighttpd"
 
 
