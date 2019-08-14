@@ -30,11 +30,10 @@ Use `index-dev.html` as the landing page. Note that the JS files are still using
 a global `m` object.
 
 ```
-# The files in src/ are just copies of the files js/
 # Use this to bundle or to avoid using native modules
 
 npm install webpack webpack-cli --save-dev
-node_modules/.bin/webpack src/app.js --output bin/app.js
+node_modules/.bin/webpack js/app.js --output bin/app.js
 ```
 
 Use your favourite development server (pointing to `index-dev.html`...).
