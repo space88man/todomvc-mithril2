@@ -28,83 +28,80 @@ export var MainView = (function() {
 
     oninit: () => {Data.load();},
 
-    view: (function () {
+    view: function (vnode) {
 
-      return function (vnode) {
+      return [
+        m('header.header',
+          [
+            m('h1', 'todos'),
+            m('input.new-todo[placeholder="What needs to be done?"]', {
+              onkeyup: watchInput(e => Data.add(e),
+                                  e => Data.clearTitle(e)),
+              oncreate: vnode => {
+                if (!focused) {
+                  vnode.dom.focus();
+                  focused = true;
+                }
+              },
+            })
+          ]),
+        m('section.main',
+          {
+            style: {
+              display: Data.isEmpty() ? 'none': '',
+            }
+          },
+          [
+            m('input#toggle-all.toggle-all[type=checkbox]',
+              {
+                checked: Data.allCompleted(),
+                onclick: () => Data.completeAll(),
+              }),
+            m('label', {
+              for: 'toggle-all'
+            }),
+            m('ul.todo-list', (function() {
 
-	return [
-	  m('header.header',
-	    [
-	      m('h1', 'todos'),
-	      m('input.new-todo[placeholder="What needs to be done?"]', {
-		onkeyup: watchInput(e => Data.add(e),
-					     e => Data.clearTitle(e)),
-		oncreate: vnode => {
-		  if (!focused) {
-		    vnode.dom.focus();
-		    focused = true;
-		  }
-		},
-	      })
-	    ]),
-	  m('section.main',
-	    {
-	      style: {
-		display: Data.isEmpty() ? 'none': '',
-	      }
-	    },
-	    [
-	      m('input#toggle-all.toggle-all[type=checkbox]',
-		{
-		  checked: Data.allCompleted(),
-		  onclick: () => Data.completeAll(),
-		}),
-	      m('label', {
-		for: 'toggle-all'
-	      }),
-	      m('ul.todo-list', (function() {
-
-		return Data.visible(vnode.attrs).map(function(task, index) {
-		  return m('li', {
-		    class: (function () {
-		      var classes = '';
-		      classes += task.completed ? 'completed' : '';
-		      classes += task.editing ? ' editing' : '';
-		      return classes;
-		    })(),
-		    key: task.key
-		  }, [
-		    m('.view', [
-		      m('input.toggle[type=checkbox]', {
-			checked: task.completed,
-			onclick: () => Data.complete(task),
-		      }),
-		      m('label', {
-			ondblclick: () => {Data.edit(task);},
-		      }, task.title),
-		      m('button', {class: 'destroy',
-				   onclick: () => {Data.remove(index)},
-				  }),
-		    ]),
-		    m('input.edit', {
-		      value: task.title,
-		      onupdate: e => {
-			if (task.editing)
-			  e.dom.focus();
-		      },
-		      oninput: e => { task.title = e.target.value; },
-		      onkeyup: watchInput(
-			() => Data.doneEditing(task, index),
-			() => Data.cancelEditing(task)
-		      ),
-		      onblur: () => Data.doneEditing(task, index),
-		    })
-		  ]);
-		})})()
-	       ),
-	    ]), Data.isEmpty() ? '' : Footer(Data, vnode.attrs.filter || '')
-	];
-      }
-    })(),
+              return Data.visible(vnode.attrs).map(function(task, index) {
+                return m('li', {
+                  class: (function () {
+                    var classes = '';
+                    classes += task.completed ? 'completed' : '';
+                    classes += task.editing ? ' editing' : '';
+                    return classes;
+                  })(),
+                  key: task.key
+                }, [
+                  m('.view', [
+                    m('input.toggle[type=checkbox]', {
+                      checked: task.completed,
+                      onclick: () => Data.complete(task),
+                    }),
+                    m('label', {
+                      ondblclick: () => {Data.edit(task);},
+                    }, task.title),
+                    m('button', {class: 'destroy',
+                                 onclick: () => {Data.remove(index)},
+                                }),
+                  ]),
+                  m('input.edit', {
+                    value: task.title,
+                    onupdate: e => {
+                      if (task.editing)
+                        e.dom.focus();
+                    },
+                    oninput: e => { task.title = e.target.value; },
+                    onkeyup: watchInput(
+                      () => Data.doneEditing(task, index),
+                      () => Data.cancelEditing(task)
+                    ),
+                    onblur: () => Data.doneEditing(task, index),
+                  })
+                ]);
+              })})()
+             ),
+          ]), Data.isEmpty() ? '' : Footer(Data, vnode.attrs.filter || '')
+      ];
+    },
   }
 })();
