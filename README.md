@@ -9,7 +9,7 @@ of git'ing `node_modules/`. The source files (relative to the Todomvc repo) are:
 * `learn.json`: `./learn.json`
 * `css/base.css`: `./node_modules/todomvc-common/base.css`
 * `js/base.js`: `./node_modules/todomvc-common/base.js`
-* `css/index.js`: `./node_modules/todomvc-app-css/index.css`
+* `css/index.css`: `./node_modules/todomvc-app-css/index.css`
 
 
 The Mithril JS file `js/mithril.js` is taken from `mithril@2.0.3`.
