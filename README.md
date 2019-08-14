@@ -30,7 +30,11 @@ Landing page: use `index-dev.html` as the landing page if you are doing developm
 webpack src/app.js --output bin/app.js
 ```
 
+Use your favourite development server (pointing to `index-dev.html`...).
+
 ## Example lighttpd configuration to serve this repo
+The files can be served directly from this directory. Use
+this to simulate a production webserver apache/nginx etc.
 
 ```
 # --- cut here ---
