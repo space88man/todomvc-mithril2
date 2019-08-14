@@ -18,6 +18,11 @@ The Mithril JS file `js/mithril.js` is taken from `mithril@2.0.3`.
 This repo uses native Javascript modules and downloads the JS files from your webserver
 without the `.js` suffix; make sure your webserver does suitable URL rewriting.
 
+I.e.,  when js requests `import ... <some_module>`, the browser module loader will
+do a `GET <some_module>`; if the files on the webserver filesystem actually have the `.js`
+suffix, then you will need to have a rewrite rule to locate the correct file. Native module
+loading seems to be working with Chrome 77/Firefox 68.
+
 
 ## Development with Webpack
 
